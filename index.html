@@ -93,7 +93,7 @@
         <div class="count">3</div>
         <div>แปลงทั้งหมด</div>
     </div>
-    <div id="updated">อัพเดท: 03/05/2026 07:38</div>
+    <div id="updated">อัพเดท: 03/05/2026 08:04</div>
     <div id="legend">
         <h4>📌 ประเภทที่ดิน</h4>
         <div class="legend-item"><div class="legend-dot" style="background:#27ae60"></div><span>ที่ดินเปล่า - เจ้าของ</span></div>
@@ -118,15 +118,18 @@
         maxZoom: 19,
     }).addTo(map);
 
-    // Layer ผังสีเมืองนนทบุรี (WMS จากกรมโยธาธิการ)
-    const landuseDPT = L.tileLayer.wms('https://gisapp.dpt.go.th/arcgis/services/DPT_LANDUSE/MapServer/WMSServer', {
-        layers: '0',
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.5,
-        attribution: '© กรมโยธาธิการและผังเมือง',
-        version: '1.1.1',
-    });
+    // Layer ผังสีเมืองนนทบุรี (ArcGIS MapServer จาก อบจ.นนทบุรี)
+    const landuseDPT = L.tileLayer(
+        'https://urbangis.nont-pro.go.th/arcgis/rest/services/NONTPRO/NONT_CITYPLAN/MapServer/export?' +
+        'dpi=96&transparent=true&format=png32&' +
+        'bbox={bbox-epsg-3857}&bboxSR=102100&imageSR=102100&size=256%2C256&f=image',
+        {
+            tileSize: 256,
+            opacity: 0.6,
+            attribution: '© อบจ.นนทบุรี ผังเมืองรวมนนทบุรี พ.ศ. 2566',
+            maxZoom: 19,
+        }
+    );
 
     // Layer หมุดที่ดิน
     const markersLayer = L.layerGroup().addTo(map);
